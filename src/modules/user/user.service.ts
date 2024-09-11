@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcrypt';
 
@@ -26,5 +30,14 @@ export class UserService {
     });
 
     return true;
+  }
+
+  async readUser({ userName }: { userName: string }) {
+    const user = await this.repository.findUser({ where: { userName } });
+    if (!user) {
+      throw new NotFoundException('아이디를 찾을 수 없습니다.');
+    }
+
+    return user;
   }
 }

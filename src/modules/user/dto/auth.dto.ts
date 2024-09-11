@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class SignUpUserDTO {
+export class AuthDTO {
   @IsString()
   @ApiProperty({
-    description: '사용할 아이디',
+    description: '아이디',
     example: 'test',
   })
   userName: string;

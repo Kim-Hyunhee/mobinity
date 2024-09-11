@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                                Int                                 @id @default(autoincrement())
+  userName                          String    
+  password                          String
+  setAmount                         Int          
+  createdAt                         DateTime                            @default(now())
+  updatedAt                         DateTime                            @default(now()) @updatedAt
+}
+
+model Brand {
+  id                                Int                                 @id @default(autoincrement())
+  name                              String
+  description                       String                              @db.Text
+  createdAt                         DateTime                            @default(now())
+  updatedAt                         DateTime                            @default(now()) @updatedAt
+
+  products                          Product[]
+}
+
+model Product {
+  id                                Int                                 @id @default(autoincrement())
+  brandId                           Int
+  name                              String
+  price                             Int
+  discountRate                      String
+  description                       String                              @db.Text
+  createdAt                         DateTime                            @default(now())
+  updatedAt                         DateTime                            @default(now()) @updatedAt
+
+  brand                             Brand                               @relation(fields: [brandId], references: [id])
+}

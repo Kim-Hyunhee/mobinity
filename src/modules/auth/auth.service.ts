@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   // 토큰 생성
-  async generateToken({ userId }: { userId?: number }) {
+  async generateToken({ userId }: { userId: number }) {
     const payload: Payload = {
       userId,
     };

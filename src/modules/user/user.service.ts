@@ -42,4 +42,19 @@ export class UserService {
 
     return user;
   }
+
+  async modifyUser({
+    userId,
+    setAmount,
+  }: {
+    userId: number;
+    setAmount: number;
+  }) {
+    await this.repository.updateUser({
+      where: { id: userId },
+      data: { setAmount },
+    });
+
+    return true;
+  }
 }

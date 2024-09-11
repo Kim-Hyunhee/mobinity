@@ -24,6 +24,8 @@ export class AuthController {
 
     await this.authService.checkUserPassword({ user, password: body.password });
 
-    return true;
+    const token = await this.authService.generateToken({ userId: user.id });
+
+    return { token };
   }
 }

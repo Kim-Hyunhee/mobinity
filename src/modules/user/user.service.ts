@@ -32,8 +32,10 @@ export class UserService {
     return true;
   }
 
-  async readUser({ userName }: { userName: string }) {
-    const user = await this.repository.findUser({ where: { userName } });
+  async readUser({ userName, userId }: { userName?: string; userId?: number }) {
+    const user = await this.repository.findUser({
+      where: { userName, id: userId },
+    });
     if (!user) {
       throw new NotFoundException('아이디를 찾을 수 없습니다.');
     }

@@ -6,7 +6,7 @@ export class UserRepository {
   constructor(private prisma: PrismaService) {}
 
   // userName 으로 해당 사용자를 DB에서 찾기
-  async findUser({ where }: { where: { userName: string } }) {
+  async findUser({ where }: { where: { userName?: string; id?: number } }) {
     return await this.prisma.user.findFirst({ where });
   }
 

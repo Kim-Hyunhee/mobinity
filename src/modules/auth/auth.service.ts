@@ -1,9 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
+  constructor(private jwtService: JwtService) {}
+
   // 비밀번호 비교
   async checkUserPassword({
     user,
@@ -19,4 +22,15 @@ export class AuthService {
 
     return isValid;
   }
+
+  // 토큰 생성
+  async generateToken({ userId }: { userId?: number }) {
+    const payload: Payload = {
+      userId,
+    };
+
+    return this.jwtService.sign(payload);
+  }
 }
+
+type Payload = { userId: number };
